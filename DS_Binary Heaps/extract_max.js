@@ -4,9 +4,7 @@ Perform Sink-Down.*/
 
 class MaxBinaryHeap {
     constructor() {
-        this.values = [];
-
-
+        this.values  = [41,39,33,18,27,12];
     }
     insert(element) {
         this.values.push(element);                          //push value into values property on the heap
@@ -28,7 +26,7 @@ class MaxBinaryHeap {
     extractMax() {
         const max = this.values[0];                         //stores value of max (0) to root (55)
         const end = this.values.pop();                      //removes the last value within your array (33)
-        if (this.values.length > 0) {                       //
+        if (this.values.length > 0) {                       //check if there is a value, return it and then begin sink down
             this.values[0] = end;                           //take the last value of the array (12) and places it first
             this.sinkDown();                                //defines sinkDown method
             return max;                                     //return maximum value nd
@@ -49,7 +47,7 @@ class MaxBinaryHeap {
             if (leftChildIdx < length) {                    //check if inbounds (i.e. valid) using length of the array
                 leftChild = this.values[leftChildIdx]       //set value of index derived (i.e 39)
                 if (leftChild > element) {                  //compare it to element
-                    swap = leftChildIdx;                    //keep track of position we're going to swap with
+                    swap = leftChildIdx;                    //keep track of position to be swapped with
                 }
             }
             if (rightChildIdx < length) {                   //check if inbounds (i.e. valid) using length of the array
@@ -71,14 +69,15 @@ class MaxBinaryHeap {
     }
 }
 let heap = new MaxBinaryHeap;
-heap.insert(41);
-heap.insert(39);
-heap.insert(33);
-heap.insert(18);
-heap.insert(27);
-heap.insert(12);
+// heap.insert(41);
+// heap.insert(39);
+// heap.insert(33);
+// heap.insert(18);
+// heap.insert(27);
+// heap.insert(12);
 heap.insert(55);
-// console.log(heap.extractMax());
+//console.log(heap.extractMax());
+//console.log(heap.values());
 
 // 0  1   2  3  4  5  6
 //[55,39,41,18,27,12,33]
