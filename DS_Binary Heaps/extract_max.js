@@ -4,7 +4,9 @@ Perform Sink-Down.*/
 
 class MaxBinaryHeap {
     constructor() {
-        this.values  = [41,39,33,18,27,12];
+        this.values  = [55, 39, 41, 18, 27, 12, 33];
+        // this.values  = [];
+        document.write("Current MaxBinaryHeap array:" + "" + this.values + "<br/>");
     }
     insert(element) {
         this.values.push(element);                          //push value into values property on the heap
@@ -26,10 +28,11 @@ class MaxBinaryHeap {
     extractMax() {
         const max = this.values[0];                         //stores value of max (0) to root (55)
         const end = this.values.pop();                      //removes the last value within your array (33)
+        document.write ("Highest number extracted is:" + ""+ max + "<br/>");
         if (this.values.length > 0) {                       //check if there is a value, return it and then begin sink down
             this.values[0] = end;                           //take the last value of the array (12) and places it first
             this.sinkDown();                                //defines sinkDown method
-            return max;                                     //return maximum value nd
+            return max;                                     //return maximum value 
         }
     }
                                                             //Sinkdown: Adjust
@@ -58,6 +61,7 @@ class MaxBinaryHeap {
                                                              //we are swopping with the right child
                 ) {
                     swap = rightChildIdx;                    //swap the larger number element and make that the rightChildIdx
+                    document.write("MaxBinaryHeap during sinkdown:" + "" + this.values + "<br/>");
                 }
             }
 
@@ -66,18 +70,12 @@ class MaxBinaryHeap {
             this.values[swap] = element;                        //saved in variable
             idx = swap;                                         //update index
         }
+        document.write ("Final MaxBinaryHeap array:" + "" + this.values + "<br/>");
     }
 }
-let heap = new MaxBinaryHeap;
-// heap.insert(41);
-// heap.insert(39);
-// heap.insert(33);
-// heap.insert(18);
-// heap.insert(27);
-// heap.insert(12);
-heap.insert(55);
-//console.log(heap.extractMax());
-//console.log(heap.values());
 
-// 0  1   2  3  4  5  6
-//[55,39,41,18,27,12,33]
+let heap = new MaxBinaryHeap;
+heap.extractMax();
+
+
+
