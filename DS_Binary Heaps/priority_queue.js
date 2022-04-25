@@ -93,35 +93,35 @@ function run() {
     let ER = new PriorityQueue();                                           //create a priority queue
     ER.enqueue("common cold", 5);                                           //add all the elements in a random order into this priority queue, using "enqueue"
     ER.enqueue("gunshot wound", 1);
-    document.write("Front of line:" + ER.back());
-    document.write(ER.front());
-    document.write("Back of line: " + ER.back());
-    document.write(ER.back());
+    console.log("Front of line:" + ER.back());
+    console.log(ER.front());
+    console.log("Back of line: " + ER.back());
+    console.log(ER.back());
     ER.enqueue("high fever", 4);
     ER.enqueue("broken arm", 2);
     ER.enqueue("glass in foot", 3);
-    document.write("Number of people in line: " + ER.size());
-    // document.write(ER.size());  
-    document.write("Patients waiting to be seen:" + ER.size());
+    console.log("Number of people in line: " + ER.size());
+    // console.log(ER.size());  
+    console.log("Patients waiting to be seen:" + ER.size());
     let seen = ER.dequeue();
-    document.write("Person being seen is:")
-    document.write(ER.dequeue());
+    console.log("Person being seen is:")
+    console.log(ER.dequeue());
     ER.empty();
     if (ER.empty()) {
-        document.write("Line is now empty.");
+        console.log("Line is now empty.");
     }
     else {
-        document.write("Number of people in line: " + ER.size());
-        document.write(ER.size());
+        console.log("Number of people in line: " + ER.size());
+        console.log(ER.size());
     }
-    document.write(ER.toString());
-    document.write("Next person seen is:")
-    document.write(ER.dequeue());
-    document.write("Next person seen is:")
-    document.write(ER.dequeue());
-    document.write("Next person seen is:")
-    document.write(ER.dequeue());
+    console.log(ER.toString());
+    console.log("Next person seen is:")
+    console.log(ER.dequeue());
+    console.log("Next person seen is:")
+    console.log(ER.dequeue());
+    console.log("Next person seen is:")
+    console.log(ER.dequeue());
     if (ER.empty()) {
-        document.write("Line is now empty.");
+        console.log("Line is now empty.");
     } 
 }
