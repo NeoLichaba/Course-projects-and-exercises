@@ -1,3 +1,4 @@
+
 // Function created for stock_items to be sold
 function Stock_item(id, name, price, quantity, total) {
   this.id = id;
@@ -52,27 +53,7 @@ function add_selection(i) { // populate cart  array with objects?
   return;
 }
 
-// Remove from cart function - removes entire row irrespective of qty
-
-// function subtract_selection(i) {
-//   for (j = 0; j < cart.length; j++) {
-//     if (cart[j].stock_id == products[i].id) { // found it, decrease the quantity by 1
-//       // if (cart[j].quantity > 0) {
-//       cart[j].quantity -= 1;
-//     }
-//     if (cart[j].quantity == 0) {
-//       cart.splice(i, 1);
-//     } else {
-//       cart.splice(i, 1); 
-//     }                
-//     display_all();
-//     return;
-//   }
-// }
-// cart.splice(i, 1); 
-// }
-// display_all();
-
+// Remove from cart function 
   function subtract_selection(i) { 
     if (cart[i].quantity > 0) {
         cart[i].quantity --;
@@ -85,96 +66,158 @@ function add_selection(i) { // populate cart  array with objects?
     }
 }
 
+//Display total function
+function displayTotal() {
+  document.getElementById("total").innerHTML =
+    "<br/><br/>Total order amount is R" + totalCart().toFixed(2);
+}
+
+//Display count function
+function displayCount() {
+  document.getElementById("count").innerHTML =
+    "<br/><br/>Total Items in Cart  " + countCart().toFixed(2);
+}
+
+//Count cart function
+function countCart() {
+  //returns total count
+  var totalCount = 0; //defines the variable
+  for (var i in cart) {
+    totalCount += cart[i].quantity; //count of particular item and add to total count
+  }
+  display_all();
+  return totalCount; // returns total items
+}
+
+var order_number = Math.floor((Math.random() * 5) + 1);
+var order = [];
+
+function Order () {
+  this.order = order;
+  }
+
+//Order function
+function addOrder() {
+  for (var i = 0; i < cart.length; i++) {
+    order.push(new Order(cart[i].stock_id, cart[i].stock_name, cart[i].price,cart[i].quantity)
+    );
+  }
+  displayOrder();
+  clearOrderArray();
+}
+
+//Total cart price function
+function totalCart() {
+  var totalCost = 0;
+  for (var i in cart) {
+    totalCost += cart[i].stock_price * cart[i].quantity;
+  }
+  display_all();
+  return totalCost;
+}
+
+
+
+//display order
+function displayOrder() {
+    document.getElementById("displayOrder").innerHTML += "<br><br>***************************************"; 
+    document.getElementById("displayOrder").innerHTML += "<br>Order Number: " + ++order_number + ",";
+    document.getElementById("displayOrder").innerHTML += "<br>Ordered Items: ";
+    for(var i = 0; i < order.length; i++){
+        document.getElementById("displayOrder").innerHTML += "<br>\t\tItem: " + cart[i].stock_name + " Quantity: " + cart[i].quantity + ", Total: R" + (cart[i].price * cart[i].quantity);
+    }
+}
+
+//Clear cart function
+function clearOrderArray() {
+    order = [];
+}
 
 
 // Display the stock array to the user, made up of stock_item objects
 function display_all() {
 
-  var myTable = "<table><th style='width: 100px; color: red; text-align: right;'>ID</th>";
-  myTable += "<th style='width: 100px; color: red; text-align: right;'>Name</th>";
-  myTable += "<th style='width: 100px; color: red; text-align: right;'>Price</th>";
-  // myTable += "<th style='width: 100px; color: red; text-align: right;'>Quantity</th>";
-  // myTable += "<th style='width: 100px; color: red; text-align: right;'>Total</th>";
-  myTable += "<th style='width: 100px; color: red; text-align: right;'>Action</th>";
-  // myTable += "<th style='width: 100px; color: red; text-align: right;'>Remove</th>";
+  var myTable = 
+  "<table><th style='width: 100px; color: red; text-align: right;'>ID</th>";
+  myTable += 
+  "<th style='width: 100px; color: red; text-align: right;'>Name</th>";
+  myTable += 
+  "<th style='width: 100px; color: red; text-align: right;'>Price</th>";
+  myTable += 
+  "<th style='width: 100px; color: red; text-align: right;'>Action</th>";
+  
 
   for (i = 0; i < products.length; i++) {
-    myTable += "<tr><td style='width: 100px; text-align: right;'>" + products[i].id + "</td>";
-    myTable += "<td style='width: 100px; text-align: right;'>" + products[i].name + "</td><";
-    myTable += "<td style='width: 100px; text-align: right;'>" + products[i].price + "</td>";
-    // myTable += "<td style='width: 100px; text-align: right;'>" + products[i].quantity + "</td>";
-    // myTable += "<td style='width: 100px; text-align: right;'>" + totals[i] + "</td>";
-    myTable += "<td><button onclick='add_selection(" + i + ")'>Add</button></td>";
-    // myTable += "<td><button onclick='remove_selection(" + i + ")'>Remove</button></td>";
+    myTable += 
+    "<tr><td style='width: 100px; text-align: right;'>" + products[i].id + "</td>";
+    myTable += 
+    "<td style='width: 100px; text-align: right;'>" + products[i].name + "</td><";
+    myTable += 
+    "<td style='width: 100px; text-align: right;'>" + products[i].price + "</td>";
+       myTable += 
+    "<td><button onclick='add_selection(" + i + ")'>Add</button></td>";
+    
   }
-  myTable += "</table><br><h2>Shopping Cart :</h2>";
 
-  var myCart = "<table><th style='width: 100px; color: red; text-align: right;'>ID</th>";
-  myCart += "<th style='width: 100px; color: red; text-align: right;'>Item</th>";
-  myCart += "<th style='width: 100px; color: red; text-align: right;'>Price</th>";
-  myCart += "<th style='width: 100px; color: red; text-align: right;'>Quantity</th>";
-  myCart += "<th style='width: 100px; color: red; text-align: right;'>Total</th>";
-  myCart += "<th style='width: 100px; color: red; text-align: right;'>Action</th>";
+  myTable += 
+  "</table><br><h2>Shopping Cart :</h2>";
+
+  var myCart = 
+  "<table><th style='width: 100px; color: red; text-align: right;'>ID</th>";
+  myCart += 
+  "<th style='width: 100px; color: red; text-align: right;'>Item</th>";
+  myCart += 
+  "<th style='width: 100px; color: red; text-align: right;'>Price</th>";
+  myCart += 
+  "<th style='width: 100px; color: red; text-align: right;'>Quantity</th>";
+  myCart += 
+  "<th style='width: 100px; color: red; text-align: right;'>Total</th>";
+  myCart += 
+  "<th style='width: 100px; color: red; text-align: right;'>Action</th>";
 
   var totalCost = 0;
 
   for (i = 0; i < cart.length; i++) {
-    myCart += "<tr><td style='width: 100px; text-align: right;'>" + cart[i].stock_id + "</td>";
-    myCart += "<td style='width: 100px; text-align: right;'>" + cart[i].stock_name + "</td>";
-    myCart += "<td style='width: 100px; text-align: right;'>" + cart[i].price + "</td>";
-    myCart += "<td style='width: 100px; text-align: right;'>" + cart[i].quantity + "</td>";
-    myCart += "<td style='width: 100px; text-align: right;'>" + parseFloat(cart[i].price) * parseInt(cart[i].quantity) + "</td>";
-    myCart += "<td><button onclick='subtract_selection(" + i + ")'>Subtract</button></td>";
+    myCart += 
+    "<tr><td style='width: 100px; text-align: right;'>" + cart[i].stock_id + "</td>";
+    myCart += 
+    "<td style='width: 100px; text-align: right;'>" + cart[i].stock_name + "</td>";
+    myCart += 
+    "<td style='width: 100px; text-align: right;'>" + cart[i].price + "</td>";
+    myCart += 
+    "<td style='width: 100px; text-align: right;'>" + cart[i].quantity + "</td>";
+    myCart += 
+    "<td style='width: 100px; text-align: right;'>" + parseFloat(cart[i].price) * parseInt(cart[i].quantity) + "</td>";
+    myCart += 
+    "<td><button onclick='subtract_selection(" + i + ")'>Subtract</button></td>";
 
     totalCost += parseFloat(cart[i].price) * parseInt(cart[i].quantity).toFixed(2);
   }
 
-
-  // myTable += "<br/><br/><button onclick='displayCart'> Checkout</button>";
+  
   myCart += '</table>';
 
-
-  myCart += "<br/><br/> Your Shopping Cart contains: <br/>";
+  myCart += 
+  "<br/><br/> Total amount in your shopping cart is: <br/>";
   var output = "";
   for (var i in cart) {
     output += "<li>" + " cart[i].stock_name " + " x " + "cart[i].quantity" + "</li>"
   }
-  myCart += "<br/><br/> Total: " + totalCost + "</p>";
-  // myCart += "<br/><br/>>td><button onclick='displayTotal()'>Checkout</button></td>";
-  // myCart += <td><button onclick='orderHistory()'>Order History</button></td>
+  
+  myCart += 
+  "<br/><br/> Total: " + totalCost + "</p>";
 
+  myCart += 
+  "<br/><br/><td><button onclick='addOrder()'>Check Out</button></td>";
+  myCart += 
+  "<br/><td><button onclick='displayCount()'>Number of Items</button></td>";
+
+  myCart += 
+  "<br/><br/><td><button onclick='displayTotal()'>Total Amount</button></td>";
+ 
   document.getElementById('demo').innerHTML = myTable;
   document.getElementById('cart').innerHTML = myCart;
   document.getElementById('total').innerHTML = totalCost;
-}
-
-
-var checkout_list = [];
-var order_number = 1;
-var orders = [];
-
-// cartTotal - total cost returned
-function mydisplayTotal() {
-  for (var i in cart) {
-    checkout_list.push("<br>" + cart[i].stock_name + "x" + cart[i].quantity);
-  }
-  document.getElementById("cart").innerHTML += "Order Number:" + order_number + "<br> Cart Items:" + checkout_list +
-    "<br/>Total order amount is R" + totalCost.toFixed(2);
-  orders.push("Order Number:" + order_number + "" + checkout_list + "<br> Total:" + totalCost + "<br><br>");
-  checkout_list = [];
-  order_number += 1;
-  cart = [];
-  for (i in products) {
-    products[i].quantity = 0;
-    products[i].total = 0;
-    totalCost = 0;
-  }
-
-  display_all();
-}
-
-function order_history() {
-  document.getElementById("total").innerHTML = orders
 }
 
 
