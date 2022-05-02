@@ -53,7 +53,7 @@ function pezPicker(pez) {
     for (var j = keepers.length - 1; j >= 0; j--) {
         pez_dispenser += (keepers.pop(keepers[j]) + " ");
     }
-//     console.log(pez_dispenser)
+    console.log(pez_dispenser)
 }
 
 
